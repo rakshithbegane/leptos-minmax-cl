@@ -526,8 +526,20 @@ video {
   margin-bottom: 0px;
 }
 
-.ml-20 {
-  margin-left: 5rem;
+.ml-5 {
+  margin-left: 1.25rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.w-56 {
+  width: 14rem;
 }
 
 .max-w-3xl {
@@ -589,8 +601,8 @@ video {
   background-color: rgb(3 105 161 / var(--tw-bg-opacity));
 }
 
-@media (min-width: 1024px) {
-  .lg\:hidden {
+@media (min-width: 640px) {
+  .sm\:hidden {
     display: none;
   }
 }

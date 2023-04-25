@@ -1,5 +1,4 @@
 use leptos::*;
-use leptos_meta::*; 
 
 
 #[component]
@@ -7,14 +6,14 @@ pub fn Drawer<F, IV>(
     cx: Scope,
     id: &'static str,
 
-    //add props for mobile,
-    //add open orientation 
-    //add toggle sidebar vs navbar
+    //TODO: add props for mobile,
+    //TODO: add open orientation 
+    //TODO: add toggle sidebar vs navbar
 
     // sidebar 
     sidebar_menu: F,
-     
-    //rest of the page content
+    
+    // rest of the page content
     children: Children,
 ) -> impl IntoView 
 where 

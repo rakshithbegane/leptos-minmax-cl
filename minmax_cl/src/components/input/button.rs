@@ -1,6 +1,4 @@
 use leptos::*;
-use leptos_meta::*;  
-
 
 pub enum ButtonColor {
     Default,
@@ -114,11 +112,18 @@ pub fn Button(
     class: MaybeSignal<&'static str>,
    
 ) -> impl IntoView { 
-    let cls = format!("btn {} {} {} {} {}", variant.as_str(), color.as_str(), size.as_str(), width.as_str(), class.get());
+    // let disabled_cls = move || if disabled() { "disabled" } else { "" } ;
+    let disabled_cls = "";
+    let loading_cls = move || if is_loading() { "btn loading" } else { "btn" };
+    let cls = move || format!("btn {} {} {} {} {} {} {}", variant.as_str(), color.as_str(), size.as_str(), width.as_str(), loading_cls(), disabled_cls, class.get()) ; 
+    log::debug!("rendering button; cls: {} {}", cls(), loading_cls());
     view! { cx,
-        <button class = cls >
+        <button class = {cls} >
                {text}
         </button>
+        // <button class = {loading_cls}  >
+        //        {text}
+        // </button>
     }
 }
 
