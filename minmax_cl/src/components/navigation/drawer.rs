@@ -22,14 +22,11 @@ where
 {  
     view! { cx,
         <div class="drawer drawer-mobile">
-            <input id=id type="checkbox" class="drawer-toggle" />
-            <div class="drawer-content flex flex-col">
-                // <!-- Page content here -->
-                {children(cx)}
-            </div> 
+            <input id=id type="checkbox" class="drawer-toggle"/>
+            <div class="drawer-content flex flex-col">{children(cx)}</div>
             <div class="drawer-side">
-                <label for=id class="drawer-overlay"></label> 
-                <div class="menu p-4 w-80 bg-base-100 text-base-content" style="width: 80%" >
+                <label for=id class="drawer-overlay"></label>
+                <div class="menu p-4 w-80 bg-base-100 text-base-content" style="width: 80%">
                     {sidebar_menu()}
                 </div>
             </div>

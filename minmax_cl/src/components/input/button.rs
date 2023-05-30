@@ -1,5 +1,6 @@
 use leptos::*;
 
+#[derive(Debug, Clone)]
 pub enum ButtonColor {
     Default,
     Primary,
@@ -28,6 +29,7 @@ impl ButtonColor {
     }
 }
 
+#[derive(Debug, Clone)]
 pub enum ButtonVariant {
     Default,
     Outline,
@@ -48,6 +50,7 @@ impl ButtonVariant {
     }
 }
 
+#[derive(Debug, Clone)]
 pub enum ButtonSize {
     Normal,
     Large,
@@ -66,6 +69,7 @@ impl ButtonSize {
     }
 }
 
+#[derive(Debug, Clone)]
 pub enum ButtonWidth {
     Default,
     Wide,
@@ -96,35 +100,32 @@ pub fn Button(
     #[prop(into, default = false.into())]
     is_loading: MaybeSignal<bool>,
 
-    #[prop(default = ButtonVariant::Default)]
-    variant: ButtonVariant,
+    #[prop(into, default = ButtonVariant::Default.into())]
+    variant: MaybeSignal<ButtonVariant>,
 
-    #[prop(default = ButtonColor::Default)]
-    color: ButtonColor,
+    #[prop(into, default = ButtonColor::Default.into())]
+    color: MaybeSignal<ButtonColor>,
 
-    #[prop(default = ButtonSize::Normal)]
-    size: ButtonSize,
+    #[prop(into, default = ButtonSize::Normal.into())]
+    size: MaybeSignal<ButtonSize>,
 
-    #[prop(default = ButtonWidth::Default)]
-    width: ButtonWidth,
+    #[prop(into, default = ButtonWidth::Default.into())]
+    width: MaybeSignal<ButtonWidth>,
 
     #[prop(into, default = "".into())]
     class: MaybeSignal<&'static str>,
    
 ) -> impl IntoView { 
-    // let disabled_cls = move || if disabled() { "disabled" } else { "" } ;
-    let disabled_cls = "";
-    let loading_cls = move || if is_loading() { "btn loading" } else { "btn" };
-    let cls = move || format!("btn {} {} {} {} {} {} {}", variant.as_str(), color.as_str(), size.as_str(), width.as_str(), loading_cls(), disabled_cls, class.get()) ; 
-    log::debug!("rendering button; cls: {} {}", cls(), loading_cls());
-    view! { cx,
-        <button class = {cls} >
-               {text}
-        </button>
-        // <button class = {loading_cls}  >
-        //        {text}
-        // </button>
-    }
+    
+    let disabled_cls = move || if disabled() { " btn-disabled" } else { "" } ; 
+    let loading_cls = move || if is_loading() { "loading  btn-disabled" } else { "" };
+    let variant_cls = move || variant().as_str();
+    let color_cls = move || color().as_str();
+    let size_cls = move || size().as_str();
+    let width_cls = move || width().as_str();
+    let cls = move || format!("btn {} {} {} {} {} {} {}", variant_cls(), color_cls(), size_cls(), width_cls(), loading_cls(), disabled_cls(), class.get()) ; 
+    
+    view! { cx, <button class=cls>{text}</button> }
 }
 
  
