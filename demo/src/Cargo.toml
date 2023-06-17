@@ -4,12 +4,12 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-leptos = { version = "0.2", features = [
+leptos = { version = "0.3.0", features = [
   "serde",
   "csr",
 ] }
-leptos_meta = { version = "0.2", features = ["csr"] }
-leptos_router = { version = "0.2", features = ["csr"]  }
+leptos_meta = { version = "0.3.0", features = ["csr"] }
+leptos_router = { version = "0.3.0", features = ["csr"]  }
 log = "0.4"
 gloo-net = { version = "0.2", features = ["http"] }
 

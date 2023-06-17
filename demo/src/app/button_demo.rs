@@ -1,14 +1,19 @@
 use leptos::*;
+use leptos_icons::*;
 use leptos_minmax_cl::components::input::button::*;
+
 
 #[component]
 pub fn ButtonDemo(
     cx: Scope, 
 ) -> impl IntoView {
     let (is_loading, set_is_loading) = create_signal(cx, true);
-    let btn_variant = move || if is_loading() { ButtonVariant::Outline } else { ButtonVariant::Default };
-    let btn_color = move || if is_loading() { ButtonColor::Default  } else { ButtonColor::Secondary };
-            
+    // let btn_variant = move || if is_loading() { ButtonVariant::Outline } else { ButtonVariant::Default };
+    let btn_color = MaybeSignal::derive(cx, move || if is_loading() { ButtonColor::Default  } else { ButtonColor::Secondary });   
+    let btn_variant = MaybeSignal::derive(cx, move || if is_loading() { ButtonVariant::Outline } else { ButtonVariant::Default });
+
+    let end_icon = MaybeSignal::derive(cx, move || if is_loading() {  None  } else { Some(Icon::from(FaIcon::FaBarsSolid)) }); 
+    
 
     view! { cx,
         <div class="">
@@ -32,7 +37,7 @@ pub fn ButtonDemo(
                     <Button text="Default Button" class="ml-5"/>
                     <Button text="Outline Button" variant=ButtonVariant::Outline class="ml-5"/>
                     <Button text="Link Button" variant=ButtonVariant::Link class="ml-5"/>
-                    <Button text="X" variant=ButtonVariant::Square class="ml-5"/>
+                    <Button text="" icon={Some(Icon::from(FaIcon::FaBarsSolid))} variant=ButtonVariant::Square class="ml-5"/>
                     <Button text="-" variant=ButtonVariant::Circle class="ml-5"/>
                 </div>
             </div>
@@ -81,13 +86,15 @@ pub fn ButtonDemo(
                     <Button
                         text="Click me!"
                         class="ml-5"
-                        variant=MaybeSignal::derive(cx, btn_variant) 
-                        color=MaybeSignal::derive(cx, btn_color)
+                        variant=btn_variant 
+                        color=btn_color
                         is_loading=is_loading
+                        end_icon=end_icon
                         on:click=move |_| set_is_loading.update(|l| *l = !(*l))
                     />
                 </div>
             </div>
         </div>
     }
+
 }
