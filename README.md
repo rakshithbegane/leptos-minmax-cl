@@ -4,6 +4,9 @@
 Go to `demo` directory and follow the instructions to run it! 
 
 
+## TODO:
+1. Tailwind css is not generted for minmax_cl component. Generate and include it the demo
+
 ## Componenets
 
 ### Inputs
