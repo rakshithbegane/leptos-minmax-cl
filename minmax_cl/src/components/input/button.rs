@@ -44,28 +44,19 @@ impl ButtonWidth {
 
 
 impl Color {
-    fn btn_class(&self) -> &'static str {
+    fn btn_class(&self) -> String {
         match self {
-            Color::Default => "",
-            Color::Primary => "btn-primary",
-            Color::Secondary => "btn-secondary",
-            Color::Accent => "btn-accent",
-            Color::Info => "btn-info",
-            Color::Success => "btn-success",
-            Color::Warning => "btn-warning",
-            Color::Error => "btn-error",
-            Color::Ghost => "btn-ghost",
+            Color::Default => "".into(),
+            x => format!("btn-{}", x.as_str()), 
         }
     }
 }
 
 impl Size {
-    fn btn_class(&self) -> &'static str {
+    fn btn_class(&self) -> String {
         match self {
-            Size::Md => "",
-            Size::Lg => "btn-lg",
-            Size::Sm => "btn-sm",
-            Size::Xs => "btn-xs",        
+            Size::Md => "".into(),
+            x => format!("btn-{}", x.as_str()),        
         }
     }
 }

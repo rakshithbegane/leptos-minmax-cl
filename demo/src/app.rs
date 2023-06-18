@@ -1,12 +1,14 @@
 mod button_demo;
+mod range_demo;
 
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*; 
 use leptos_minmax_cl::components::navigation::drawer::*;
 
-
+use range_demo::*;
 use button_demo::*; 
+
 
 #[component]
 pub fn App(
@@ -22,6 +24,7 @@ pub fn App(
                 </li>
                 <li>
                     <a href="/input/button">"Button"</a>
+                    <a href="/input/range">"Range"</a>
                 </li>
             </ul>
         }
@@ -42,12 +45,8 @@ pub fn App(
                             view! { cx, <Home/> }
                         }
                     />
-                    <Route
-                        path="/input/button"
-                        view=move |cx| {
-                            view! { cx, <ButtonDemo/> }
-                        }
-                    />
+                    <Route path="/input/button" view=move |cx| { view! { cx, <ButtonDemo/> } } />
+                    <Route path="/input/range" view=move |cx| { view! { cx, <RangeDemo/> } } />
                 </Routes>
             </Drawer>
         </Router>
