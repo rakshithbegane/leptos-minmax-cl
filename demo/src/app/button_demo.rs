@@ -1,6 +1,8 @@
 use leptos::*;
 use leptos_icons::*;
 use leptos_minmax_cl::components::input::button::*;
+use leptos_minmax_cl::components::types::*;
+
 
 
 #[component]
@@ -9,7 +11,7 @@ pub fn ButtonDemo(
 ) -> impl IntoView {
     let (is_loading, set_is_loading) = create_signal(cx, true);
     // let btn_variant = move || if is_loading() { ButtonVariant::Outline } else { ButtonVariant::Default };
-    let btn_color = MaybeSignal::derive(cx, move || if is_loading() { ButtonColor::Default  } else { ButtonColor::Secondary });   
+    let btn_color = MaybeSignal::derive(cx, move || if is_loading() { Color::Default  } else { Color::Secondary });   
     let btn_variant = MaybeSignal::derive(cx, move || if is_loading() { ButtonVariant::Outline } else { ButtonVariant::Default });
 
     let end_icon = MaybeSignal::derive(cx, move || if is_loading() {  None  } else { Some(Icon::from(FaIcon::FaBarsSolid)) }); 
@@ -21,14 +23,14 @@ pub fn ButtonDemo(
                 <h2>"Button Colors"</h2>
                 <div>
                     <Button text="Default Button" class="ml-5"/>
-                    <Button text="Primary Button" color=ButtonColor::Primary class="ml-5"/>
-                    <Button text="Secondary Button" color=ButtonColor::Secondary class="ml-5"/>
-                    <Button text="Accent Button" color=ButtonColor::Accent class="ml-5"/>
-                    <Button text="Info Button" color=ButtonColor::Info class="ml-5"/>
-                    <Button text="Success Button" color=ButtonColor::Success class="ml-5"/>
-                    <Button text="Warning Button" color=ButtonColor::Warning class="ml-5"/>
-                    <Button text="Error Button" color=ButtonColor::Error class="ml-5"/>
-                    <Button text="Ghost Button" color=ButtonColor::Ghost class="ml-5"/>
+                    <Button text="Primary Button" color=Color::Primary class="ml-5"/>
+                    <Button text="Secondary Button" color=Color::Secondary class="ml-5"/>
+                    <Button text="Accent Button" color=Color::Accent class="ml-5"/>
+                    <Button text="Info Button" color=Color::Info class="ml-5"/>
+                    <Button text="Success Button" color=Color::Success class="ml-5"/>
+                    <Button text="Warning Button" color=Color::Warning class="ml-5"/>
+                    <Button text="Error Button" color=Color::Error class="ml-5"/>
+                    <Button text="Ghost Button" color=Color::Ghost class="ml-5"/>
                 </div>
             </div>
             <div class="mt-10">
@@ -37,17 +39,17 @@ pub fn ButtonDemo(
                     <Button text="Default Button" class="ml-5"/>
                     <Button text="Outline Button" variant=ButtonVariant::Outline class="ml-5"/>
                     <Button text="Link Button" variant=ButtonVariant::Link class="ml-5"/>
-                    <Button text="" icon={Some(Icon::from(FaIcon::FaBarsSolid))} variant=ButtonVariant::Square class="ml-5"/>
-                    <Button text="-" variant=ButtonVariant::Circle class="ml-5"/>
+                    <Button icon={Some(Icon::from(FaIcon::FaBarsSolid))} variant=ButtonVariant::Square class="ml-5"/>
+                    <Button icon={Some(Icon::from(AiIcon::AiDeleteFilled))} variant=ButtonVariant::Circle color=Color::Ghost class="ml-5"/>
                 </div>
             </div>
             <div class="mt-10">
                 <h2>"Button Sizes"</h2>
                 <div>
-                    <Button text="Large Button" size=ButtonSize::Large class="ml-5"/>
+                    <Button text="Large Button" size=Size::Lg class="ml-5"/>
                     <Button text="Normal Button" class="ml-5"/>
-                    <Button text="Small Button" size=ButtonSize::Small class="ml-5"/>
-                    <Button text="Tiny Button" size=ButtonSize::Tiny class="ml-5"/>
+                    <Button text="Small Button" size=Size::Sm class="ml-5"/>
+                    <Button text="Tiny Button" size=Size::Xs class="ml-5"/>
                 </div>
             </div>
             <div class="mt-10">
@@ -56,21 +58,33 @@ pub fn ButtonDemo(
                     <Button
                         text="Default Width Button"
                         width=ButtonWidth::Default
-                        color=ButtonColor::Primary
+                        color=Color::Primary
                         class="ml-5"
                     />
                     <Button
                         text="Wide Button"
                         width=ButtonWidth::Wide
-                        color=ButtonColor::Primary
+                        color=Color::Primary
                         class="ml-5"
                     />
                     <Button
                         text="Block Button"
                         width=ButtonWidth::Block
-                        color=ButtonColor::Primary
+                        color=Color::Primary
                         class="ml-5 mt-2"
                     />
+                </div>
+            </div>
+            <div class="mt-10">
+                <h2>"Button With Href"</h2>
+                <div>
+                    <Button
+                        href={Some("https://leptos.dev/")}
+                        text="Leptos"
+                        variant=ButtonVariant::Link
+                        color=Color::Primary
+                        class="ml-5"
+                    /> 
                 </div>
             </div>
             <div class="mt-10">

@@ -22,6 +22,8 @@ leptos_icons = { git = "https://github.com/Carlosted/leptos-icons",  default_fea
     "Bs1Circle",
     "BsFolder",
     "FaBarsSolid",
+    "AiDeleteOutlined",
+    "AiDeleteFilled",
     "ImPagebreak",
     "ImPageBreak",
     "IoColorWand",

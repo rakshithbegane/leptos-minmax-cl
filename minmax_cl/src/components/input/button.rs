@@ -1,34 +1,7 @@
 use leptos::*;
 use leptos_icons::*;
+use crate::components::types::*;
 
-#[derive(Debug, Clone)]
-pub enum ButtonColor {
-    Default,
-    Primary,
-    Secondary,
-    Accent,
-    Info,
-    Success,
-    Warning,
-    Error,
-    Ghost,
-}
-
-impl ButtonColor {
-    fn as_str(&self) -> &'static str {
-        match self {
-            ButtonColor::Default => "",
-            ButtonColor::Primary => "btn-primary",
-            ButtonColor::Secondary => "btn-secondary",
-            ButtonColor::Accent => "btn-accent",
-            ButtonColor::Info => "btn-info",
-            ButtonColor::Success => "btn-success",
-            ButtonColor::Warning => "btn-warning",
-            ButtonColor::Error => "btn-error",
-            ButtonColor::Ghost => "btn-ghost",
-        }
-    }
-}
 
 #[derive(Debug, Clone)]
 pub enum ButtonVariant {
@@ -40,7 +13,7 @@ pub enum ButtonVariant {
 }
 
 impl ButtonVariant {
-    fn as_str(&self) -> &'static str {
+    fn btn_class(&self) -> &'static str {
         match self {
             ButtonVariant::Default => "",
             ButtonVariant::Outline => "btn-outline",
@@ -51,24 +24,6 @@ impl ButtonVariant {
     }
 }
 
-#[derive(Debug, Clone)]
-pub enum ButtonSize {
-    Normal,
-    Large,
-    Small,
-    Tiny,
-}
-
-impl ButtonSize {
-    fn as_str(&self) -> &'static str {
-        match self {
-            ButtonSize::Normal => "",
-            ButtonSize::Large => "btn-lg",
-            ButtonSize::Small => "btn-sm",
-            ButtonSize::Tiny => "btn-xs",        
-        }
-    }
-}
 
 #[derive(Debug, Clone)]
 pub enum ButtonWidth {
@@ -78,7 +33,7 @@ pub enum ButtonWidth {
 }
 
 impl ButtonWidth {
-    fn as_str(&self) -> &'static str {
+    fn btn_class(&self) -> &'static str {
         match self {
             ButtonWidth::Default => "",
             ButtonWidth::Wide => "btn-wide",
@@ -88,11 +43,38 @@ impl ButtonWidth {
 }
 
 
+impl Color {
+    fn btn_class(&self) -> &'static str {
+        match self {
+            Color::Default => "",
+            Color::Primary => "btn-primary",
+            Color::Secondary => "btn-secondary",
+            Color::Accent => "btn-accent",
+            Color::Info => "btn-info",
+            Color::Success => "btn-success",
+            Color::Warning => "btn-warning",
+            Color::Error => "btn-error",
+            Color::Ghost => "btn-ghost",
+        }
+    }
+}
+
+impl Size {
+    fn btn_class(&self) -> &'static str {
+        match self {
+            Size::Md => "",
+            Size::Lg => "btn-lg",
+            Size::Sm => "btn-sm",
+            Size::Xs => "btn-xs",        
+        }
+    }
+}
+
 #[component]
 pub fn Button( 
     cx: Scope,
  
-    #[prop(into)]
+    #[prop(into, default = "".into())]
     text: MaybeSignal<&'static str>,
     
     #[prop(into, default = false.into())]
@@ -104,11 +86,11 @@ pub fn Button(
     #[prop(into, default = ButtonVariant::Default.into())]
     variant: MaybeSignal<ButtonVariant>,
 
-    #[prop(into, default = ButtonColor::Default.into())]
-    color: MaybeSignal<ButtonColor>,
+    #[prop(into, default = Color::Default.into())]
+    color: MaybeSignal<Color>,
 
-    #[prop(into, default = ButtonSize::Normal.into())]
-    size: MaybeSignal<ButtonSize>,
+    #[prop(into, default = Size::Md.into())]
+    size: MaybeSignal<Size>,
 
     #[prop(into, default = ButtonWidth::Default.into())]
     width: MaybeSignal<ButtonWidth>,
@@ -116,26 +98,28 @@ pub fn Button(
     #[prop(into, default = "".into())]
     class: MaybeSignal<&'static str>,
 
-    #[prop(into, default = None.into())]
+    #[prop(into, optional, default = None.into())]
+    href: MaybeSignal<Option<&'static str>>,
+
+    #[prop(into, optional, default = None.into())]
     icon: MaybeSignal<Option<Icon>>,
 
-    #[prop(into, default = None.into())]
+    #[prop(into, optional, default = None.into())]
     start_icon: MaybeSignal<Option<Icon>>,
 
-    #[prop(into, default = None.into())]
+    #[prop(into, optional, default = None.into())]
     end_icon: MaybeSignal<Option<Icon>>,
 
 ) -> impl IntoView { 
     
-    let disabled_cls = move || if disabled() { " btn-disabled" } else { "" } ; 
-    let loading_cls = move || if is_loading() { "loading  btn-disabled" } else { "" };
-    let variant_cls = move || variant().as_str();
-    let color_cls = move || color().as_str();
-    let size_cls = move || size().as_str();
-    let width_cls = move || width().as_str();
-    let cls = move || format!("btn {} {} {} {} {} {} {}", variant_cls(), color_cls(), size_cls(), width_cls(), loading_cls(), disabled_cls(), class.get()) ; 
+    let disabled_cls = move || if disabled() { "btn-disabled" } else { "" } ; 
+    let loading_cls = move || if is_loading() { "loading btn-disabled" } else { "" };
+    let variant_cls = move || variant().btn_class();
+    let color_cls = move || color().btn_class();
+    let size_cls = move || size().btn_class();
+    let width_cls = move || width().btn_class();
 
-    
+    let all_classes = move || format!("btn {} {} {} {} {} {} {}", variant_cls(), color_cls(), size_cls(), width_cls(), loading_cls(), disabled_cls(), class.get()) ; 
 
 
     let end_icon_view = move || {
@@ -161,14 +145,33 @@ pub fn Button(
 
 
 
-
-    view! { cx, 
-        <button class=cls> 
-            {start_icon_view}
-            {icon_view}
-            {text} 
-            {end_icon_view}
-        </button> 
+    view! { cx,
+        <>
+            {match href() {
+                Some(href) => {
+                    view! { cx,
+                        <a href=href class=all_classes>
+                            {start_icon_view}
+                            {icon_view}
+                            {text}
+                            {end_icon_view}
+                        </a>
+                    }
+                        .into_any()
+                }
+                None => {
+                    view! { cx,
+                        <button class=all_classes>
+                            {start_icon_view} 
+                            {icon_view} 
+                            {text} 
+                            {end_icon_view}
+                        </button>
+                    }
+                        .into_any()
+                }
+            }}
+        </>
     }
 }
 
