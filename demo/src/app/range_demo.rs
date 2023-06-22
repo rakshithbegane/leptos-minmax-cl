@@ -18,7 +18,7 @@ pub fn RangeDemo(
         <div class="">
             // <div class="w-full flex justify-between text-xs px-2" ></div>
             <div class="mt-10">
-                <h2 class="mb-5" >"Range Colors"</h2>
+                <h2 class="mb-5 text-lg" >"Range Colors"</h2>
                 <div>
                     <Range value=10 />
                     <Range value=90 color=Color::Primary />
@@ -32,7 +32,7 @@ pub fn RangeDemo(
                 </div>
             </div> 
             <div class="mt-10">
-                <h2 class="mb-5" >"Range Sizes"</h2>
+                <h2 class="mb-5 text-lg" >"Range Sizes"</h2>
                 <div>
                     <Range value=15 size=Size::Lg />
                     <Range value=30 size=Size::Md />
@@ -41,7 +41,7 @@ pub fn RangeDemo(
                 </div>
             </div>  
             <div class="mt-10">
-                <h2 class="mb-5" >"With step"</h2>
+                <h2 class="mb-5 text-lg" >"With step"</h2>
                 <div>
                     <Range value=20 step=5  />
                     <Range value=30 step=10 class="mt-5" />
@@ -49,7 +49,7 @@ pub fn RangeDemo(
                 </div>
             </div>  
             <div class="mt-10">
-                <h2 class="mb-5" >"Dynamic States"</h2>
+                <h2 class="mb-5 text-lg" >"Dynamic States"</h2>
                 <div>
                     <Range value={value.get() * 2} step={5} color=Color::Success on_change={Box::new(move |v| set_value.update(|x| *x = v / 2))} />
                     <Range value=value size=Size::Xs  class="mt-5" />

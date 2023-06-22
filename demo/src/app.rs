@@ -35,19 +35,25 @@ pub fn App(
         <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
         <Router>
             <Drawer id="mm-drawer-1" sidebar_menu=menu>
-                <label for="mm-drawer-1" class="btn btn-primary drawer-button sm:hidden">
-                    "Open drawer"
-                </label>
-                <Routes>
-                    <Route
-                        path=""
-                        view=move |cx| {
-                            view! { cx, <Home/> }
-                        }
-                    />
-                    <Route path="/input/button" view=move |cx| { view! { cx, <ButtonDemo/> } } />
-                    <Route path="/input/range" view=move |cx| { view! { cx, <RangeDemo/> } } />
-                </Routes>
+                <div class="mb-5" >
+                    <label for="mm-drawer-1" class="btn btn-primary drawer-button sm:hidden">
+                        "Open drawer"
+                    </label>
+                    <Routes>
+                        <Route
+                            path=""
+                            view=move |cx| { view! { cx, <Home/> } }
+                        />
+                        <Route
+                            path="/input/button"
+                            view=move |cx| { view! { cx, <ButtonDemo/> } }
+                        />
+                        <Route
+                            path="/input/range"
+                            view=move |cx| { view! { cx, <RangeDemo/> } }
+                        />
+                    </Routes>
+                </div>
             </Drawer>
         </Router>
     }

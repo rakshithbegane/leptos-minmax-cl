@@ -11,14 +11,14 @@ Go to `demo` directory and follow the instructions to run it!
 
 ### Inputs
 - [ ] Autocomplete
-- [-] Button
+- [X] Button
 - [ ] Button Group
 - [ ] Checkbox
 - [ ] Floating Action Button
 - [ ] Radio Group
 - [ ] Rating
 - [ ] Select
-- [ ] Slider
+- [X] Range/Slider
 - [ ] Switch
 - [ ] Text Field
 - [ ] Transfer List
